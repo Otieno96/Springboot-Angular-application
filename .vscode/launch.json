@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Application",
+            "request": "launch",
+            "mainClass": "odhiambo.net.userms.Springboot.Angular.Application",
+            "projectName": "userms-Springboot-Angular"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Open app.component.html",
+            "file": "c:\\Users\\Konnect 3\\Development\\Spring-Angular-application\\angular-app\\angular-app\\src\\app\\app.component.html"
+        }
+    ]
+}
