@@ -1,10 +1,14 @@
+import { Date } from "mongoose";
+
 export class User {
     id!: number;
-    firstName!: string;
-    middleName!: string;
-    lastName!: string;
-    gender!: string;
+    firstname!: string;
+    middlename!: string;
+    lastname!: string;
     username!: string;
+    gender!: string;
+    DOB!: Date;
     email!: string;
+    mobile!: string;
     password!: string;
 }

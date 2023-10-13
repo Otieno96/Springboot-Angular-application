@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { User } from '../user.model';
 import { Router } from '@angular/router';
@@ -51,4 +52,3 @@ export class UserUpdateComponent {
     this.updateUser();
   }
   }
-

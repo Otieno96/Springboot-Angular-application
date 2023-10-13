@@ -1,4 +1,6 @@
 <div class="container">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registermodal">Add User</button>
+    <br>
     <h2 class="text-center">User List</h2>
         <table class="table table-stripped">
             <thead>
@@ -7,25 +9,228 @@
                     <th>Middle Name</th>
                     <th>Last Name</th>
                     <th>Gender</th>
+                    <th>Date of Birth</th>
                     <th>Username</th>
                     <th>Email</th>
+                    <th>Mobile</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users">
-                    <td> {{ user.firstName }} </td>
-                    <td> {{ user.middleName }} </td>
-                    <td> {{ user.lastName }} </td>
+                <tr *ngFor="let user of userslist">
+                    <td> {{ user.firstname }} </td>
+                    <td> {{ user.middlename }} </td>
+                    <td> {{ user.lastname }} </td>
                     <td> {{user.gender}}</td>
+                    <td> {{ user.DOB }} </td>
                     <td> {{ user.username }} </td>
-                    <td> {{user.email}}</td>
+                    <td> {{ user.email }} </td>
+                    <td> {{ user.mobile }} </td>
+                    <td> {{ user.email}}</td>
                     <td>
-                        <button (click) = "updateUser(user.id)" class="btn btn-info">Update</button>
+                        <button (click) = "onUpdate()" class="btn btn-info">Update</button>
                         <button (click) = "deleteUser(user.id)" class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
 
             </tbody>
         </table>
+
+   <!--Register Form Modal-->
+    <div class="modal fade modal-lg" id="registermodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Add New User</h4>
+          </div>
+          <div class="modal-body">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                          <div class="row">
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>First Name</label>
+                                      <input type="text" formControlName="firstname" class="form-control" />
+                                      <div *ngIf="submitted && f['firstname'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['firstname'].errors['required']">FirstName is required</div>
+                                      </div>
+                                   </div>
+                             </div> 
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Middle Name</label>
+                                      <input type="text" formControlName="middlename" class="form-control"/>
+                                      <div *ngIf="submitted && f['middlename'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['middlename'].errors['required']">Middle Name is required</div>
+                                      </div>
+                                   </div>
+                             </div> 
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Last Name</label>
+                                      <input type="text" formControlName="lastname" class="form-control" />
+                                      <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['lastname'].errors['required']">Last Name is required</div>
+                                      </div>
+                                   </div>
+                             </div> 
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Username</label>
+                                      <input type="text" formControlName="username" class="form-control"/>
+                                      <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['username'].errors['required']">Username is required</div>
+                                      </div>
+                                   </div>
+                             </div>
+    
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <br>
+                                    <label class="radio-inline">
+                                       <input type="radio" name="gender" value="male">
+                                        Male
+                                      </label>
+                                      <br>
+                                      <label class="radio-inline">
+                                        <input type="radio" name="gender" value="female" >
+                                        Female
+                                      </label>
+                                   </div>
+                             </div>
+    
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Date of Birth</label>
+                                      <input type="date" formControlName="DOB" class="form-control" />
+                                      <div *ngIf="submitted && f['DOB'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['DOB'].errors['required']">Date of Birth is required</div>
+                                      </div>
+                                   </div>
+                             </div>
+    
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                   <label>Email</label>
+                                   <input type="text" formControlName="email" class="form-control"  />
+                                   <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                      <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                      <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                                   </div>
+                                </div>
+                             </div>
+                             <div class="col-sm-6">
+                                   <div class="form-group">
+                                      <label>Mobile</label>
+                                      <input type="text" formControlName="mobile" class="form-control" />
+                                      <div *ngIf="submitted && f['mobile'].errors" class="invalid-feedback">
+                                         <div *ngIf="f['mobile'].errors">Mobile must be Valid and at least 10 digits</div>
+                                        
+                                      </div>
+                                   </div>
+                                </div>
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                   <label>Password</label>
+                                   <input type="password" formControlName="password" class="form-control" />
+                                   <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                      <div *ngIf="f['password'].errors['required']">Password is required</div>
+                                      <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+                                   </div>
+                                </div>
+                             </div>
+                 </div>
+                 <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+        </div>
+
+<!--Update Form Modal-->
+<div class="modal" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabe2">Update User Information</h4>
+          </div>
+          <div class="modal-body">
+                    <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+                          <div class="row">
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>First Name</label>
+                                      <input type="text" formControlName="firstname" class="form-control" [(ngModel)]="editUser.firstname" name="firstname" />
+                                   </div>
+                             </div> 
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Middle Name</label>
+                                      <input type="text" formControlName="middlename" class="form-control"  [(ngModel)]="editUser.middlename" name="middlename" />
+                                   </div>
+                             </div> 
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Last Name</label>
+                                      <input type="text" formControlName="lastname" class="form-control"  [(ngModel)]="editUser.lastname" name="lastname" />
+                                   </div>
+                             </div> 
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Username</label>
+                                      <input type="text" formControlName="username" class="form-control" [(ngModel)]="editUser.username" name="username" />
+                                   </div>
+                             </div>
+    
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" value="male" [(ngModel)]="user.gender">
+                                        Male
+                                      </label>
+                                      <label class="radio-inline">
+                                        <input type="radio" name="gender" value="female" [(ngModel)]="user.gender">
+                                        Female
+                                      </label>
+                                   </div>
+                             </div>
+    
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                      <label>Date of Birth</label>
+                                      <input type="date" formControlName="DOB" class="form-control" [(ngModel)]="editUser.DOB" />
+                                   </div>
+                             </div>
+    
+                             <div class="col-sm-6">
+                                <div class="form-group">
+                                   <label>Email</label>
+                                   <input type="text" formControlName="email" class="form-control" [(ngModel)]="editUser.email" />
+                                </div>
+                             </div>
+                             <div class="col-sm-6">
+                                   <div class="form-group">
+                                      <label>Mobile</label>
+                                      <input type="text" formControlName="mobile" class="form-control" [(ngModel)]="editUser.mobile" />
+                                   </div>
+                                </div>
+                 </div>
+                 <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+            
+            </div>
+          </div>
+        </div>
+        </div>
+
+
 </div>
